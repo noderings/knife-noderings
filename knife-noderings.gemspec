@@ -27,5 +27,5 @@ Gem::Specification.new do |s|
   }
 
   # The plugin talks to the API with the Ruby standard library only.
-  s.add_dependency "knife", ">= 18.0"
+  s.add_dependency "knife", ">= 18.0", "< 20"
 end

@@ -9,6 +9,8 @@ A [knife](https://docs.chef.io/workstation/knife/) plugin for
 marketplace and bootstraps Chef Infra (or Cinc) on them in one command, and lists,
 shows, powers and deletes them.
 
+New to it? The step-by-step guide [How to use Chef on a NodeRings VPS: cookbook, knife and Test Kitchen](https://noderings.com/blog/chef-vps) walks through a first run.
+
 ```shell
 knife noderings server create --hostname web-1 \
   --plan SC-GC-1C-1G-20 --country "United States" --city Ashburn \
