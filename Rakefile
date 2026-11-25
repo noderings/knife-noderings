@@ -11,12 +11,12 @@ rescue LoadError
 end
 
 begin
-  require "chefstyle"
+  require "cookstyle/chefstyle"
   require "rubocop/rake_task"
   desc "Run Chefstyle"
   RuboCop::RakeTask.new(:style) { |t| t.options += ["--display-cop-names", "--no-color"] }
 rescue LoadError
-  puts "chefstyle is not installed. Run bundle install first."
+  puts "cookstyle is not installed. Run bundle install first."
 end
 
 begin
