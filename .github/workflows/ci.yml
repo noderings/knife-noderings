@@ -1,0 +1,30 @@
+---
+name: ci
+
+"on":
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.1", "3.2", "3.3", "3.4"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Unit tests
+        run: bundle exec rake spec
+      - name: Chefstyle
+        run: bundle exec rake style
+      - name: Build the gem
+        run: gem build *.gemspec
