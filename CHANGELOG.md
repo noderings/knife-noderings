@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file. The format foll
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [0.2.0](https://github.com/noderings/knife-noderings/compare/v0.1.0...v0.2.0) (2026-11-26)
+
+
+### Features
+
+* choose the provider in knife noderings server create ([#5](https://github.com/noderings/knife-noderings/issues/5)) ([f79d5c2](https://github.com/noderings/knife-noderings/commit/f79d5c2e7a4d5504747a6edb62ec438915c32188))
+
 ## [Unreleased]
 
 ## [0.1.0] - 2026-11-25
