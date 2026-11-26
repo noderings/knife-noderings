@@ -443,6 +443,10 @@ module KnifeNoderings
       get("/v1/marketplace/providers/#{KnifeNoderings.escape(provider_id)}")["provider"]
     end
 
+    def get_public_storefront(slug)
+      get("/v1/public/storefronts/#{KnifeNoderings.escape(slug)}")["storefront"]
+    end
+
     def list_distros
       get("/v1/distros")["distros"] || []
     end
