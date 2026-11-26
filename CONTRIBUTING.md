@@ -20,11 +20,18 @@ Please report security problems privately as described in [SECURITY.md](SECURITY
 
 ## Releases
 
-Push a `vX.Y.Z` tag that matches `KnifeNoderings::VERSION` (or merge the
-release-please pull request once that workflow is in place). The tag starts
-`.github/workflows/release.yml`, which publishes the gem to
-[RubyGems.org](https://rubygems.org/gems/knife-noderings) with trusted
-publishing and then publishes the GitHub release.
+1. Merge pull requests into `main`. release-please
+   (`.github/workflows/release-please.yml`, using the noderings-release-bot GitHub App)
+   keeps a pull request named `chore: release X.Y.Z` up to date. It changes
+   the version in `lib/knife-noderings/version.rb` and writes `CHANGELOG.md`.
+2. Merge that pull request when you want to release. release-please pushes the tag
+   `vX.Y.Z` and creates a draft GitHub release.
+3. The tag starts `.github/workflows/release.yml`, which publishes the gem to
+   [RubyGems.org](https://rubygems.org/gems/knife-noderings) with trusted
+   publishing, then publishes the GitHub release.
+
+Do not create tags or releases by hand. A gem version on RubyGems.org cannot be
+replaced, so only merge the release pull request when you mean to publish.
 
 The first push of a new gem must pass the RubyGems.org account ID (`owner: "256963"`)
 when exchanging the OIDC token, as already set in `release.yml`. To retry a
