@@ -1,0 +1,43 @@
+# Nightly read-only knife smokes against the NodeRings API (plan, region and
+# distro list). Runs only when the NODERINGS_TOKEN secret is set; otherwise
+# the job skips with a notice and succeeds. Does not create or delete
+# servers.
+name: Nightly live API
+
+"on":
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NODERINGS_TOKEN: ${{ secrets.NODERINGS_TOKEN }}
+    steps:
+      - name: Skip when NODERINGS_TOKEN is not set
+        if: env.NODERINGS_TOKEN == ''
+        run: echo "::notice title=Live tests skipped::Add the repository secret NODERINGS_TOKEN (a service account token for a test organization) to run them."
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: env.NODERINGS_TOKEN != ''
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        if: env.NODERINGS_TOKEN != ''
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - name: Read-only list commands
+        if: env.NODERINGS_TOKEN != ''
+        run: |
+          bundle exec knife noderings plan list
+          bundle exec knife noderings region list
+          bundle exec knife noderings distro list
