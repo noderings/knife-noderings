@@ -46,9 +46,13 @@ class Chef
         in: %w{usage subscription free},
         default: "usage"
 
+      option :hosting_provider,
+        long: "--hosting-provider PROVIDER",
+        description: "Only consider offers from this provider, given by its ID, storefront slug or name (any case)."
+
       option :provider_id,
         long: "--provider-id ID",
-        description: "Only consider offers from this provider."
+        description: "Only consider offers from the provider with this ID. Takes precedence over --hosting-provider."
 
       option :sort,
         long: "--sort ORDER",
@@ -178,7 +182,8 @@ class Chef
 
         plan_id, region_id, offer = noderings_call("finding an offer") do
           compute.choose_offer(client, config[:plan], config[:country], config[:city],
-            billing_type: config[:billing_type], provider_id: config[:provider_id], sort: config[:sort])
+            billing_type: config[:billing_type], provider_id: config[:provider_id], sort: config[:sort],
+            provider: config[:hosting_provider])
         end
         [plan_id, region_id, "#{config[:plan]} from #{offer["provider_name"]} in #{config[:city]}, #{config[:country]}"]
       end

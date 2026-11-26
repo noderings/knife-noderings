@@ -65,7 +65,8 @@ Orders a server, waits until it is provisioned and SSH answers, then runs
 | `--city CITY` | City of the offer, such as `Ashburn`. See `knife noderings region list`. |
 | `--billing-type TYPE` | `usage` (hourly, default), `subscription` or `free`. |
 | `--sort ORDER` | `price` (cheapest, default) or `rating` (best rated). |
-| `--provider-id ID` | Only consider offers from this provider. |
+| `--hosting-provider PROVIDER` | Only consider offers from this provider: its ID, storefront slug (such as `acme-hosting`) or name (`"Acme Hosting"`, any case). |
+| `--provider-id ID` | Only consider offers from the provider with this ID. Takes precedence over `--hosting-provider`. |
 | `--plan-id ID`, `--region-id ID` | An exact plan and region, instead of plan, country and city. |
 | `--distro DISTRO` | Operating system, `ubuntu_24_04` by default. See `knife noderings distro list`. |
 | `--noderings-ssh-key NAME` | NodeRings SSH key to install. Repeat for more. Required. |
@@ -73,6 +74,10 @@ Orders a server, waits until it is provisioned and SSH answers, then runs
 | `--firewall-ruleset NAME` | Firewall ruleset to attach. It must allow SSH from your workstation. |
 | `--noderings-tags a,b` | Tags on the server. |
 | `--server-create-timeout SECONDS` | How long to wait for the server (default 900). |
+
+Without `--hosting-provider` knife orders the cheapest matching offer (compute
+price, then rating), so the provider can change between servers. A provider name
+that more than one provider uses fails; give the ID or storefront slug then.
 
 knife connects as `root` on port 22 and accepts the new server's host key on first
 use; override with `--connection-user`, `--ssh-port` and `--ssh-verify-host-key`.

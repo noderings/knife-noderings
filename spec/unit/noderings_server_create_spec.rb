@@ -35,6 +35,42 @@ describe Chef::Knife::NoderingsServerCreate do
     expect(cmd).to have_received(:wait_for_sshd).with("192.0.2.50")
   end
 
+  context "with --hosting-provider" do
+    def order_from(provider)
+      with = knife(described_class, args + ["--hosting-provider", provider])
+      allow(with).to receive(:wait_for_sshd)
+      with.plugin_validate_options!
+      with.plugin_create_instance!
+      with
+    end
+
+    [FakeNodeRings::ACME_ID, "acme-hosting", "Acme Hosting", "  acme HOSTING "].each do |provider|
+      it "orders from the provider given as #{provider.inspect}" do
+        order_from(provider)
+        expect(@fake.created_vm_bodies.last).to include("planId" => FakeNodeRings::ACME_PLAN_ID, "regionId" => FakeNodeRings::ACME_REGION_ID)
+      end
+    end
+
+    it "orders the cheapest offer without one" do
+      cmd.plugin_validate_options!
+      cmd.plugin_create_instance!
+      expect(@fake.created_vm_bodies.last["planId"]).to eq FakeNodeRings::PLAN_ID
+    end
+
+    it "fails for an unknown provider" do
+      expect { order_from("Nobody Hosting") }.to raise_error(SystemExit)
+      expect(@stderr.string).to include("from provider Nobody Hosting")
+      expect(@fake.created_vm_bodies).to be_empty
+    end
+
+    it "refuses a provider name two providers share" do
+      @fake.extra_providers << FakeNodeRings::ACME_OFFER.merge("organizationId" => "66666666-6666-6666-6666-666666666666")
+      expect { order_from("acme hosting") }.to raise_error(SystemExit)
+      expect(@stderr.string).to include("more than one provider is named acme hosting")
+      expect(@fake.created_vm_bodies).to be_empty
+    end
+  end
+
   it "sends the User-Agent and token" do
     cmd.plugin_validate_options!
     cmd.plugin_create_instance!
