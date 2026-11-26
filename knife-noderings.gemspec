@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version = KnifeNoderings::VERSION
   s.authors = ["NodeRings"]
   s.email = ["partners@noderings.com"]
-  s.homepage = "https://github.com/noderings/knife-noderings"
+  s.homepage = "https://noderings.com"
   s.summary = "NodeRings support for Chef's knife: order, bootstrap and manage NodeRings servers"
   s.description = "A knife plugin that orders NodeRings virtual machines from the marketplace and bootstraps " \
                   "Chef Infra or Cinc on them, and lists, shows, powers and deletes them."
@@ -17,12 +17,13 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.required_ruby_version = ">= 3.1"
 
+  source_code = "https://github.com/noderings/knife-noderings"
   s.metadata = {
-    "bug_tracker_uri" => "#{s.homepage}/issues",
-    "changelog_uri" => "#{s.homepage}/blob/main/CHANGELOG.md",
-    "documentation_uri" => "#{s.homepage}#readme",
+    "bug_tracker_uri" => "#{source_code}/issues",
+    "changelog_uri" => "#{source_code}/blob/main/CHANGELOG.md",
+    "documentation_uri" => "#{source_code}#readme",
     "homepage_uri" => s.homepage,
-    "source_code_uri" => s.homepage,
+    "source_code_uri" => source_code,
     "rubygems_mfa_required" => "true",
   }
 
