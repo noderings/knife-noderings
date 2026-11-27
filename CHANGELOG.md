@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file. The format foll
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [0.2.1](https://github.com/noderings/knife-noderings/compare/v0.2.0...v0.2.1) (2026-11-27)
+
+
+### Documentation
+
+* link the official Go SDK in the README ([#8](https://github.com/noderings/knife-noderings/issues/8)) ([1397c04](https://github.com/noderings/knife-noderings/commit/1397c04e5e7dbb33e2e7ed1303f97efc8af5117c))
+
 ## [0.2.0](https://github.com/noderings/knife-noderings/compare/v0.1.0...v0.2.0) (2026-11-26)
 
 
